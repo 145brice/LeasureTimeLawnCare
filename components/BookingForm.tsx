@@ -67,7 +67,7 @@ export default function BookingForm({ selectedDate, selectedTime }: BookingFormP
           Your appointment has been scheduled for {format(selectedDate, 'EEEE, MMMM d, yyyy')} at {selectedTime}
         </p>
         <p className="text-gray-600 mb-6">
-          We'll send a confirmation email to {formData.email} shortly.
+          We&apos;ll send a confirmation email to {formData.email} shortly.
         </p>
         <a
           href="/"
