@@ -8,7 +8,7 @@ export default function Footer() {
           <div>
             <h3 className="text-xl font-bold mb-4">Leasure Time Lawn Care</h3>
             <p className="text-gray-400">
-              Professional lawn care and maintenance services you can trust.
+              Your local lawn care experts in Kewanee, IL. Let&apos;s make your yard the envy of the neighborhood! 🌿
             </p>
           </div>
           <div>
@@ -34,9 +34,18 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-semibold mb-4">Contact</h4>
             <ul className="space-y-2 text-gray-400">
-              <li>Phone: (555) 123-4567</li>
-              <li>Email: info@leasuretimelawncare.com</li>
-              <li>Hours: Mon-Sat 7AM-7PM</li>
+              <li className="flex items-start">
+                <span className="mr-2">📞</span>
+                <a href="tel:309-312-1408" className="hover:text-white transition-colors">(309) 312-1408</a>
+              </li>
+              <li className="flex items-start">
+                <span className="mr-2">📍</span>
+                <span>129 Pasyson Street<br />Kewanee, IL 61443</span>
+              </li>
+              <li className="flex items-start">
+                <span className="mr-2">🕐</span>
+                <span>Mon-Sat 7AM-7PM</span>
+              </li>
             </ul>
           </div>
         </div>

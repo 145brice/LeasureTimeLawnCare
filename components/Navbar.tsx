@@ -10,8 +10,8 @@ export default function Navbar() {
     <nav className="bg-white shadow-md sticky top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
-          <Link href="/" className="text-2xl font-bold text-primary-600">
-            Leasure Time Lawn Care
+          <Link href="/" className="text-2xl font-bold text-primary-600 hover:text-primary-700 transition-colors">
+            🌿 Leasure Time Lawn Care
           </Link>
           
           {/* Desktop Menu */}
