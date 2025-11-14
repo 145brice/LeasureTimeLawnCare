@@ -32,12 +32,18 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h4 className="text-lg font-semibold mb-4">Contact</h4>
+            <h4 className="text-lg font-semibold mb-4">Get In Touch</h4>
+            <div className="bg-primary-800/30 rounded-lg p-4 mb-4">
+              <p className="text-white font-semibold mb-2">📞 Call or Text Today!</p>
+              <a 
+                href="tel:309-312-1408" 
+                className="text-2xl font-bold text-white hover:text-primary-200 transition-colors block mb-2"
+              >
+                (309) 312-1408
+              </a>
+              <p className="text-primary-200 text-sm">Free Estimates Available</p>
+            </div>
             <ul className="space-y-2 text-gray-400">
-              <li className="flex items-start">
-                <span className="mr-2">📞</span>
-                <a href="tel:309-312-1408" className="hover:text-white transition-colors">(309) 312-1408</a>
-              </li>
               <li className="flex items-start">
                 <span className="mr-2">📍</span>
                 <span>129 Pasyson Street<br />Kewanee, IL 61443</span>

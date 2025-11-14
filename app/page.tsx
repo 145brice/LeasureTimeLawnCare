@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import ContactForm from '@/components/ContactForm'
 
 export default function Home() {
   return (
@@ -16,12 +17,20 @@ export default function Home() {
             <p className="text-lg md:text-xl mb-8 text-primary-200">
               Professional lawn care services in Kewanee, IL that make your neighbors jealous!
             </p>
-            <Link
-              href="/book"
-              className="inline-block bg-white text-primary-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-primary-50 hover:scale-105 transition-all shadow-lg transform"
-            >
-              🚀 Book Your Service Now
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <a
+                href="tel:309-312-1408"
+                className="inline-block bg-white text-primary-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-primary-50 hover:scale-105 transition-all shadow-lg transform"
+              >
+                📞 Call or Text (309) 312-1408
+              </a>
+              <Link
+                href="/book"
+                className="inline-block bg-primary-800 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-primary-900 hover:scale-105 transition-all shadow-lg transform"
+              >
+                📅 Book Online Now
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -140,24 +149,55 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 md:py-24 bg-primary-600 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Ready to Make Your Neighbors Jealous? 😎
-          </h2>
-          <p className="text-xl mb-4 text-primary-100">
-            Let&apos;s turn your yard into the talk of the town!
-          </p>
-          <p className="text-lg mb-8 text-primary-200">
-            Serving Kewanee, IL with pride. Call Brian at (309) 312-1408 or book online!
-          </p>
-          <Link
-            href="/book"
-            className="inline-block bg-white text-primary-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-primary-50 hover:scale-105 transition-all shadow-lg transform"
-          >
-            🎯 Schedule Your Appointment Now
-          </Link>
+      {/* Contact & CTA Section */}
+      <section className="py-16 md:py-24 bg-gradient-to-br from-primary-600 to-primary-700 text-white">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+            {/* Contact Form */}
+            <div className="bg-white rounded-lg shadow-xl p-8">
+              <h2 className="text-2xl md:text-3xl font-bold mb-2 text-gray-900">
+                Get Your Free Estimate Today! 🎯
+              </h2>
+              <p className="text-gray-600 mb-6">
+                Fill out the form below and we&apos;ll get back to you within 24 hours.
+              </p>
+              <ContactForm />
+            </div>
+
+            {/* Call to Action */}
+            <div className="flex flex-col justify-center text-center lg:text-left">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Ready to Transform Your Yard?
+              </h2>
+              <p className="text-xl mb-6 text-primary-100">
+                Trust our 20+ years of experience for all your lawn care needs in Kewanee, IL.
+              </p>
+              
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 mb-6">
+                <p className="text-lg font-semibold mb-2">📞 Call or Text Today!</p>
+                <a 
+                  href="tel:309-312-1408" 
+                  className="text-3xl font-bold hover:text-primary-200 transition-colors block mb-2"
+                >
+                  (309) 312-1408
+                </a>
+                <p className="text-primary-200 text-sm">Available Mon-Sat 7AM-7PM</p>
+              </div>
+
+              <div className="space-y-4">
+                <Link
+                  href="/book"
+                  className="block bg-white text-primary-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-primary-50 hover:scale-105 transition-all shadow-lg transform text-center"
+                >
+                  📅 Book Online Now
+                </Link>
+                <div className="text-primary-200 text-sm">
+                  <p className="mb-2">📍 Serving Kewanee, IL & Surrounding Areas</p>
+                  <p>129 Pasyson Street, Kewanee, IL 61443</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </div>

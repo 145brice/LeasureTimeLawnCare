@@ -66,13 +66,31 @@ export default function ServicesPage() {
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <a
-            href="/book"
-            className="inline-block bg-primary-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-primary-700 transition-colors shadow-lg"
-          >
-            Book Your Service Now
-          </a>
+        {/* CTA Section */}
+        <div className="mt-16 bg-gradient-to-r from-primary-600 to-primary-700 rounded-lg p-8 md:p-12 text-white text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Ready to Get Started?
+          </h2>
+          <p className="text-xl mb-6 text-primary-100">
+            Get your free estimate today! Call, text, or book online.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a
+              href="tel:309-312-1408"
+              className="inline-block bg-white text-primary-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-primary-50 hover:scale-105 transition-all shadow-lg transform"
+            >
+              📞 Call or Text (309) 312-1408
+            </a>
+            <a
+              href="/book"
+              className="inline-block bg-primary-800 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-primary-900 hover:scale-105 transition-all shadow-lg transform"
+            >
+              📅 Book Online Now
+            </a>
+          </div>
+          <p className="text-primary-200 text-sm mt-4">
+            Free Estimates Available • Serving Kewanee, IL & Surrounding Areas
+          </p>
         </div>
       </div>
     </div>
