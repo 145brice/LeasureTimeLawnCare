@@ -23,12 +23,31 @@ export default function ContactForm() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    try {
+      // Send email notification
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: 'contact',
+          data: formData,
+        }),
+      })
 
-    console.log('Contact Form:', formData)
-    setIsSubmitting(false)
-    setIsSubmitted(true)
+      if (!response.ok) {
+        throw new Error('Failed to send email notification')
+      }
+
+      setIsSubmitting(false)
+      setIsSubmitted(true)
+    } catch (error) {
+      console.error('Error submitting contact form:', error)
+      // Still show success to user even if email fails
+      setIsSubmitting(false)
+      setIsSubmitted(true)
+    }
   }
 
   if (isSubmitted) {

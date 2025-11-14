@@ -41,17 +41,35 @@ export default function BookingForm({ selectedDate, selectedTime }: BookingFormP
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+    try {
+      // Send email notification
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: 'booking',
+          data: {
+            ...formData,
+            date: format(selectedDate, 'EEEE, MMMM d, yyyy'),
+            time: selectedTime,
+          },
+        }),
+      })
 
-    console.log('Booking Details:', {
-      ...formData,
-      date: format(selectedDate, 'yyyy-MM-dd'),
-      time: selectedTime,
-    })
+      if (!response.ok) {
+        throw new Error('Failed to send email notification')
+      }
 
-    setIsSubmitting(false)
-    setIsSubmitted(true)
+      setIsSubmitting(false)
+      setIsSubmitted(true)
+    } catch (error) {
+      console.error('Error submitting booking:', error)
+      // Still show success to user even if email fails
+      setIsSubmitting(false)
+      setIsSubmitted(true)
+    }
   }
 
   if (isSubmitted) {
