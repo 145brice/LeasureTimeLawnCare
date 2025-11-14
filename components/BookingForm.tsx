@@ -42,8 +42,35 @@ export default function BookingForm({ selectedDate, selectedTime }: BookingFormP
     setIsSubmitting(true)
 
     try {
-      // Send email notification
-      const response = await fetch('/api/send-email', {
+      const dateStr = format(selectedDate, 'yyyy-MM-dd')
+      const displayDate = format(selectedDate, 'EEEE, MMMM d, yyyy')
+
+      // First, reserve the time slot
+      const bookingResponse = await fetch('/api/bookings', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          date: dateStr,
+          time: selectedTime,
+          name: formData.name,
+          email: formData.email,
+        }),
+      })
+
+      if (!bookingResponse.ok) {
+        const errorData = await bookingResponse.json()
+        if (bookingResponse.status === 409) {
+          alert('Sorry, this time slot was just booked by someone else. Please select another time.')
+          window.location.reload()
+          return
+        }
+        throw new Error(errorData.error || 'Failed to reserve time slot')
+      }
+
+      // Then send email notification
+      const emailResponse = await fetch('/api/send-email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -52,23 +79,22 @@ export default function BookingForm({ selectedDate, selectedTime }: BookingFormP
           type: 'booking',
           data: {
             ...formData,
-            date: format(selectedDate, 'EEEE, MMMM d, yyyy'),
+            date: displayDate,
             time: selectedTime,
           },
         }),
       })
 
-      if (!response.ok) {
-        throw new Error('Failed to send email notification')
+      if (!emailResponse.ok) {
+        console.error('Failed to send email notification, but booking is confirmed')
       }
 
       setIsSubmitting(false)
       setIsSubmitted(true)
     } catch (error) {
       console.error('Error submitting booking:', error)
-      // Still show success to user even if email fails
+      alert('There was an error processing your booking. Please try again or call us at (309) 312-1408')
       setIsSubmitting(false)
-      setIsSubmitted(true)
     }
   }
 

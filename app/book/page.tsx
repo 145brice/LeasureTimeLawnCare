@@ -9,6 +9,8 @@ export default function BookPage() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [selectedTime, setSelectedTime] = useState<string>('')
   const [step, setStep] = useState<'date' | 'time' | 'details'>('date')
+  const [bookedSlots, setBookedSlots] = useState<string[]>([])
+  const [loadingSlots, setLoadingSlots] = useState(false)
 
   const timeSlots = [
     '8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM',
@@ -16,9 +18,29 @@ export default function BookPage() {
     '4:00 PM', '5:00 PM', '6:00 PM'
   ]
 
-  const handleDateSelect = (date: Date) => {
+  const handleDateSelect = async (date: Date) => {
     setSelectedDate(date)
     setStep('time')
+    // Fetch booked slots for this date
+    await fetchBookedSlots(date)
+  }
+
+  const fetchBookedSlots = async (date: Date) => {
+    setLoadingSlots(true)
+    try {
+      const dateStr = format(date, 'yyyy-MM-dd')
+      const response = await fetch(`/api/bookings?date=${dateStr}`)
+      const data = await response.json()
+      
+      if (data.bookings) {
+        const bookedTimes = data.bookings.map((b: { time: string }) => b.time)
+        setBookedSlots(bookedTimes)
+      }
+    } catch (error) {
+      console.error('Error fetching booked slots:', error)
+    } finally {
+      setLoadingSlots(false)
+    }
   }
 
   const handleTimeSelect = (time: string) => {
@@ -93,21 +115,36 @@ export default function BookPage() {
                 <p className="text-gray-600 mb-6">
                   Selected Date: {selectedDate && format(selectedDate, 'EEEE, MMMM d, yyyy')}
                 </p>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  {timeSlots.map((time) => (
-                    <button
-                      key={time}
-                      onClick={() => handleTimeSelect(time)}
-                      className={`p-4 rounded-lg border-2 transition-colors ${
-                        selectedTime === time
-                          ? 'border-primary-600 bg-primary-50 text-primary-600'
-                          : 'border-gray-200 hover:border-primary-300 hover:bg-gray-50'
-                      }`}
-                    >
-                      {time}
-                    </button>
-                  ))}
-                </div>
+                {loadingSlots ? (
+                  <div className="text-center py-8">
+                    <p className="text-gray-600">Checking availability...</p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    {timeSlots.map((time) => {
+                      const isBooked = bookedSlots.includes(time)
+                      return (
+                        <button
+                          key={time}
+                          onClick={() => !isBooked && handleTimeSelect(time)}
+                          disabled={isBooked}
+                          className={`p-4 rounded-lg border-2 transition-colors ${
+                            isBooked
+                              ? 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed opacity-60'
+                              : selectedTime === time
+                              ? 'border-primary-600 bg-primary-50 text-primary-600'
+                              : 'border-gray-200 hover:border-primary-300 hover:bg-gray-50'
+                          }`}
+                        >
+                          {time}
+                          {isBooked && (
+                            <span className="block text-xs mt-1 text-red-600">Booked</span>
+                          )}
+                        </button>
+                      )
+                    })}
+                  </div>
+                )}
               </div>
             )}
 
