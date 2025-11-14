@@ -69,8 +69,8 @@ export default function BookingForm({ selectedDate, selectedTime }: BookingFormP
         throw new Error(errorData.error || 'Failed to reserve time slot')
       }
 
-      // Then send email notification
-      const emailResponse = await fetch('/api/send-email', {
+      // Then send email and SMS notifications
+      const notificationResponse = await fetch('/api/send-notification', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -85,8 +85,8 @@ export default function BookingForm({ selectedDate, selectedTime }: BookingFormP
         }),
       })
 
-      if (!emailResponse.ok) {
-        console.error('Failed to send email notification, but booking is confirmed')
+      if (!notificationResponse.ok) {
+        console.error('Failed to send notifications, but booking is confirmed')
       }
 
       setIsSubmitting(false)

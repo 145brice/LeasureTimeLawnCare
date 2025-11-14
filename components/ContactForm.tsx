@@ -24,8 +24,8 @@ export default function ContactForm() {
     setIsSubmitting(true)
 
     try {
-      // Send email notification
-      const response = await fetch('/api/send-email', {
+      // Send email and SMS notifications
+      const response = await fetch('/api/send-notification', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ export default function ContactForm() {
       })
 
       if (!response.ok) {
-        throw new Error('Failed to send email notification')
+        throw new Error('Failed to send notifications')
       }
 
       setIsSubmitting(false)
